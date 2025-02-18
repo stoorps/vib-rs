@@ -41,29 +41,29 @@ struct PkgModule {
     name: String,
     r#type: String,
 
-    #[serde(rename = "Packages")]
+    //#[serde(rename = "Packages")]
     #[serde(default)]
     packages: Vec<String>,
 
-    #[serde(rename = "Remotes")]
+    //#[serde(rename = "Remotes")]
     #[serde(default)]
     remote: String,
 
-    #[serde(rename = "Manager")]
+    //#[serde(rename = "Manager")]
     #[serde(default)]
     manager: Manager,
 
-    #[serde(rename = "Action")]
+   // #[serde(rename = "Action")]
     #[serde(default)]
     action: Action,
 
-    #[serde(rename = "On")]
+    //#[serde(rename = "On")]
     #[serde(default)]
     on: On,
 
+    //#[serde(rename = "ExtraFlags")]
     #[serde(default)]
-    #[serde(rename = "ExtraFlags")]
-    extra_flags: Vec<String>,
+    args: Vec<String>,
 }
 
 const SYSTEM_SERVICE: &str = "
@@ -195,7 +195,7 @@ fn build_module(module_interface: String, recipe_interface: String) -> String {
 
     let command = format!(
         "{pkg_mgr} {action} {} {params}",
-        module.extra_flags.join(" ")
+        module.args.join(" ")
     );
 
     match module.on {
@@ -205,7 +205,7 @@ fn build_module(module_interface: String, recipe_interface: String) -> String {
 
             let command = format!(
                 "{pkg_mgr} {action} {} {params}",
-                module.extra_flags.join(" ")
+                module.args.join(" ")
             );
 
             let file = match script_path.exists() {
