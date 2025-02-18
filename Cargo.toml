@@ -1,0 +1,9 @@
+[workspace]
+resolver = "2"
+
+members = ["silverblue-package", "vib-common"]
+
+[workspace.dependencies]
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.138"
+vib-common = {path = "vib-common"}
