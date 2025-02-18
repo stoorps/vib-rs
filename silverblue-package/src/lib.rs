@@ -47,7 +47,7 @@ struct PkgModule {
 
     //#[serde(rename = "Remotes")]
     #[serde(default)]
-    remote: String,
+    remotes: Vec<String>,
 
     //#[serde(rename = "Manager")]
     #[serde(default)]
@@ -190,7 +190,7 @@ fn build_module(module_interface: String, recipe_interface: String) -> String {
 
     let params = match module.action {
         Action::install | Action::uninstall => module.packages.join(" "),
-        Action::add_remote | Action::remove_remote => module.remote,
+        Action::add_remote | Action::remove_remote => module.remotes.join(" "),
     };
 
     let command = format!(
