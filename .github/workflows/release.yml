@@ -13,6 +13,11 @@ jobs:
     name: Release pushed tag
     runs-on: ubuntu-22.04
     steps:
+      - uses: actions/checkout@v4
+      
+      - name: Run tests
+        run: cargo test --verbose
+      
       - name: Create release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -22,3 +27,12 @@ jobs:
               --repo="$GITHUB_REPOSITORY" \
               --title="${tag#v}" \
               --generate-notes
+
+      - name: Setup publish toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+            toolchain: stable
+            override: true
+      - uses: katyo/publish-crates@v2
+        with:
+            registry-token: ${{ secrets.CARGO_REGISTRY_TOKEN }}
