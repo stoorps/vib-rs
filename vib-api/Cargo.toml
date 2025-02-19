@@ -10,8 +10,8 @@ repository = "https://github.com/stoorps/vib-rs"
 [dependencies]
 serde.workspace = true
 serde_json.workspace = true
-vib-macros = {path = "../vib-macros", optional = true }
+vib-macros = {path = "../vib-macros"}#, optional = true }
 
-[features]
-default = ["macros"]
-macros = ["dep:vib-macros"]
+# [features]
+# default = ["macros"]
+# macros = ["dep:vib-macros"]
