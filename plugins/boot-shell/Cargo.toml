@@ -1,10 +1,10 @@
 [package]
-name = "ostree-pkg"
+name = "boot-shell"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-name = "ostreepkg"
+name = "bootshell"
 crate-type = ["rlib", "cdylib"]
 
 [dependencies]
@@ -12,6 +12,6 @@ serde.workspace = true
 serde_json.workspace = true
 vib-api.workspace = true
 
-
 [dev-dependencies]
 tempfile.workspace = true
+

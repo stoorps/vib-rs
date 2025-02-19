@@ -53,32 +53,22 @@ pub struct Recipe {
 
 #[derive(Default, Clone, Serialize, Deserialize, PartialEq, Eq, Debug)]
 pub struct Stage {
-    //#[serde(rename = "Id")]
     #[serde(default)]
     pub id: String,
 
-    //#[serde(rename = "Base")]
     #[serde(default)]
     pub base: String,
 
-    //#[serde(rename = "Copy")]
     pub copy: Option<Vec<Copy>>,
 
     #[serde(rename = "addincludes")]
     pub add_includes: bool,
 
-    //#[serde(rename = "labels")]
     pub labels: Option<HashMap<String, String>>,
-
-    //#[serde(rename = "Env")]
     pub env: Option<HashMap<String, String>>,
-
     pub adds: Option<Vec<Add>>,
-
     pub args: Option<HashMap<String, String>>,
-
     pub runs: Option<Run>,
-
     pub expose: Option<HashMap<String, String>>,
 
     #[serde(default)]
