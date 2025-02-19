@@ -1,9 +1,13 @@
 [![Build](https://github.com/stoorps/vib-silverblue/actions/workflows/build.yml/badge.svg)](https://github.com/stoorps/vib-silverblue/actions/workflows/build.yml)
 
 # vib-rs
+Currently, this is a repo for all of my vib crates. 
+
 ## vib-api
 Rust library for creating vib plugins easily.
 This includes macros, and models for the Recipe passed in by vib.
+
+There is an example repo [available here](/examples/example-plugin/).
 
 Example code:
 ```Rust
@@ -17,6 +21,8 @@ use vib_api::{Recipe, build_module, plugin_info};
  pub struct ModuleInfo {
      pub name: String,
      pub r#type: String,
+
+     //Add your custom fields here!
  }
 
 
@@ -26,3 +32,9 @@ use vib_api::{Recipe, build_module, plugin_info};
     "".into()
  }
 ```
+
+## ostree-pkg
+Vib plugin for installing packages & flatpaks, and adding remotes for each respective manager, either at build time or first login.
+
+This is still WIP.
+
