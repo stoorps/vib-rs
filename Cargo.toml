@@ -1,7 +1,7 @@
 [workspace]
 resolver = "2"
 
-members = ["plugins/ostree-pkg", "plugins/boot-shell", "examples/example-plugin", "vib-api", "vib-macros"]
+members = ["examples/example-plugin", "vib-api", "vib-macros"]
 
 [workspace.dependencies]
 serde = { version = "1.0.217", features = ["derive"] }
