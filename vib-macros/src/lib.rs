@@ -7,8 +7,36 @@ use syn::{
     NestedMeta,  Type,
 };
 
+/// Generates the `extern "C" fn BuildModule` required by vib.
+///
+/// This needs to go on a build function, and must have two parameters:
+/// * `module` - Your ModuleInfo struct, which uses the macro '[plugin_info]`.
+/// * `recipe` - Of type 'vib_api::Recipe'
+/// ```
+/// # use std::ffi:: CString;
+/// # use std::os::raw::c_char;
+/// use vib_macros::{build_module, plugin_info}; 
+/// use serde::{Serialize, Deserialize};
+/// #
+/// # #[derive(Debug, Deserialize)]
+/// # pub struct Recipe; 
+///
+/// #[derive(Serialize, Deserialize)]
+/// #[plugin_info(name = "example-plugin", module_type = "0", use_container_cmds = "0")]
+/// pub struct ModuleInfo {
+///     pub name: String,
+///     pub r#type: String,
+/// }
+///
+
+/// #[build_module]
+/// fn build(module: ModuleInfo, _recipe: Recipe) -> String {
+///    //add your plugin code here!
+///    "".into()
+/// }
+/// ```
 #[proc_macro_attribute]
-pub fn build_plugin(_attr: TokenStream, item: TokenStream) -> TokenStream {
+pub fn build_module(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     let input_fn = parse_macro_input!(item as ItemFn);
 
@@ -79,9 +107,39 @@ fn is_recipe_type(ty: &Type) -> bool {
     false
 }
 
-
+/// Generates the `extern "C" fn PlugInfo()` required by vib.
+///
+/// This needs to go on your ModuleInfo struct, and requries a `name: String` and `type: String` field at a minimum for vib to be happy.
+/// 
+/// Bear in mind that `type` is an invalid name for a field. See below example.
+/// 
+/// This macro requires three parameters:
+/// 
+/// * `name`   - The name of your plugin. 
+/// * `module_type` - BuildPlugins should use '0' as a value, FinalizePlugins are '1'
+/// * `use_container_cmds` - No idea what this does yet... I keep this at '0'
+/// ```
+/// # use std::ffi:: CString;
+/// # use std::os::raw::c_char;
+/// use vib_macros::{plugin_info}; 
+/// use serde::{Serialize, Deserialize};
+/// #
+/// # #[derive(Debug, Deserialize)]
+/// # pub struct Recipe; 
+///
+/// #[derive(Serialize, Deserialize)]
+/// #[plugin_info(name = "example-plugin", module_type = "0", use_container_cmds = "0")]
+/// pub struct ModuleInfo {
+///     pub name: String,
+///     pub r#type: String,
+///     // OR
+///     #[serde(rename = "type")]
+///     pub module_type: String
+/// }
+///
+/// ```
 #[proc_macro_attribute]
-pub fn module_info(attr: proc_macro::TokenStream, item: proc_macro::TokenStream) -> proc_macro::TokenStream {
+pub fn plugin_info(attr: proc_macro::TokenStream, item: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(item as DeriveInput);
     let attrs = parse_macro_input!(attr as syn::AttributeArgs);
 

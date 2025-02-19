@@ -4,7 +4,7 @@ use std::fs::{create_dir_all, OpenOptions};
 use std::io::Write;
 use std::os::raw::c_char;
 use std::path::Path;
-use vib_api::{Recipe, build_plugin, module_info};
+use vib_api::{Recipe, build_module, plugin_info};
 
 #[derive(Default, Clone, Serialize, Deserialize)]
 #[allow(non_camel_case_types)]
@@ -34,7 +34,7 @@ pub enum On {
 }
 
 #[derive(Serialize, Deserialize)]
-#[module_info(name = "ostree-pkg", module_type ="0", use_container_cmds ="0" )]
+#[plugin_info(name = "ostree-pkg", module_type ="0", use_container_cmds ="0" )]
 struct PkgModule {
     name: String,
     r#type: String,
@@ -81,8 +81,8 @@ WantedBy=default.target";
 
 
 
-#[build_plugin]
-fn build_module(module: PkgModule, recipe: Recipe) -> String {
+#[build_module]
+fn build(module: PkgModule, recipe: Recipe) -> String {
     let parent_path = Path::new(&recipe.includes_path);
     let target_dir = parent_path.join("includes.container/etc");
     let target_dir = Path::new(&target_dir);
