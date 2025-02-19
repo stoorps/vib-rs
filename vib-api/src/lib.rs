@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use serde::{Deserialize, Serialize};
 
+#[cfg(feature = "macros")]
 pub use vib_macros::*;
 
 #[derive(Default, Clone, Serialize, Deserialize, PartialEq, Eq, Debug)]
