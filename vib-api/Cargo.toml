@@ -1,13 +1,9 @@
 [package]
-name = "silverblue-package"
+name = "vib-api"
 version = "0.1.0"
 edition = "2021"
-
-[lib]
-name = "plugin"
-crate-type = ["rlib", "cdylib"]
 
 [dependencies]
 serde.workspace = true
 serde_json.workspace = true
-vib-common.workspace = true
+vib-macros = {path = "../vib-macros" }

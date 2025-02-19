@@ -22,5 +22,5 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v4
       with:
-        Name: vib-silverblue
+        name: ostree-pkg
         path: target/release/libplugin.so
