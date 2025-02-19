@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-
+default-members = ["vib-api", "vib-macros"]
 members = ["examples/example-plugin", "vib-api", "vib-macros"]
 
 [workspace.dependencies]

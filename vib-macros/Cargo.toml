@@ -1,6 +1,6 @@
 [package]
 name = "vib-macros"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2021"
 description = "Macros for use in vib-api" 
 license = "MIT"
