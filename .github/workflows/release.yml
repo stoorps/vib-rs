@@ -17,6 +17,12 @@ jobs:
       
       - name: Run tests
         run: cargo test --verbose
+
+      - name: Publish vib-macros
+        run: cargo publish -p vib-macros --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
+
+      - name: Publish vib-api
+        run: cargo publish -p vib-api --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
       
       - name: Create release
         env:
@@ -27,12 +33,3 @@ jobs:
               --repo="$GITHUB_REPOSITORY" \
               --title="${tag#v}" \
               --generate-notes
-
-      - name: Setup publish toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-            toolchain: stable
-            override: true
-      - uses: katyo/publish-crates@v2
-        with:
-            registry-token: ${{ secrets.CARGO_REGISTRY_TOKEN }}
